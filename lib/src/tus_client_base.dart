@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cross_file/cross_file.dart';
+import 'package:http/http.dart' as http;
 import 'package:speed_test_dart/classes/server.dart';
 import 'package:tus_client_dart/tus_client_dart.dart';
 
@@ -42,7 +43,7 @@ abstract class TusClientBase {
   Future<void> upload({
     Function(double, Duration)? onProgress,
     Function(TusClient, Duration?)? onStart,
-    Function()? onComplete,
+    Function(http.StreamedResponse? res)? onComplete,
     required Uri uri,
     Map<String, String>? metadata = const {},
     Map<String, String>? headers = const {},
