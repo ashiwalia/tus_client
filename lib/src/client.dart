@@ -127,7 +127,7 @@ class TusClient extends TusClientBase {
   Future<void> upload({
     Function(double, Duration)? onProgress,
     Function(TusClient, Duration?)? onStart,
-    Function(http.StreamedResponse? res)? onComplete,
+    Function(String uploadedFileName)? onComplete,
     required Uri uri,
     Map<String, String>? metadata = const {},
     Map<String, String>? headers = const {},
@@ -195,7 +195,7 @@ class TusClient extends TusClientBase {
 
   Future<void> _performUpload({
     Function(double, Duration)? onProgress,
-    Function(http.StreamedResponse? res)? onComplete,
+    Function(String uploadedFileName)? onComplete,
     required Map<String, String> uploadHeaders,
     required http.Client client,
     required Stopwatch uploadStopwatch,
@@ -263,7 +263,7 @@ class TusClient extends TusClientBase {
         if (_offset == totalBytes && !_pauseUpload) {
           this.onCompleteUpload();
           if (onComplete != null) {
-            onComplete(_response);
+            onComplete(_response!.headers["x-upload-filename"]!);
           }
         }
       } else {

@@ -43,7 +43,7 @@ abstract class TusClientBase {
   Future<void> upload({
     Function(double, Duration)? onProgress,
     Function(TusClient, Duration?)? onStart,
-    Function(http.StreamedResponse? res)? onComplete,
+    Function(String uploadedFileName)? onComplete,
     required Uri uri,
     Map<String, String>? metadata = const {},
     Map<String, String>? headers = const {},
